@@ -52,6 +52,23 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Custom colors for educational dashboard
+				admin: {
+					DEFAULT: '#1E40AF', // Deep blue
+					light: '#93C5FD',
+				},
+				faculty: {
+					DEFAULT: '#047857', // Green
+					light: '#A7F3D0',
+				},
+				student: {
+					DEFAULT: '#9333EA', // Purple
+					light: '#D8B4FE',
+				},
+				parent: {
+					DEFAULT: '#B45309', // Orange
+					light: '#FDE68A',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

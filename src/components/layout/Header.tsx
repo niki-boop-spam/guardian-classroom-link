@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Bell, MessageSquare, Calendar, LogOut, Menu } from "lucide-react";
+import { Menu, LogOut, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/auth";
@@ -28,28 +28,11 @@ export function Header({ toggleSidebar }: HeaderProps) {
   };
 
   const getInitials = (firstName: string, lastName: string) => {
-    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-  };
-
-  const getRoleColor = () => {
-    if (!user) return "bg-gray-300";
-
-    switch (user.role) {
-      case "admin":
-        return "bg-admin";
-      case "faculty":
-        return "bg-faculty";
-      case "student":
-        return "bg-student";
-      case "parent":
-        return "bg-parent";
-      default:
-        return "bg-gray-300";
-    }
+    return `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white border-b shadow-sm">
+    <header className="sticky top-0 z-30 bg-background border-b shadow-sm">
       <div className="flex items-center justify-between h-16 px-4">
         <div className="flex items-center">
           <Button
@@ -62,41 +45,26 @@ export function Header({ toggleSidebar }: HeaderProps) {
           </Button>
           <div className="flex items-center">
             <h1 className="text-xl font-bold text-primary">
-              <Link to="/">Guardian Classroom Link</Link>
+              <Link to="/" className="hover:underline">
+                v.e.d - Void Education Dashboard
+              </Link>
             </h1>
             {user && (
-              <span className="ml-2 text-sm font-semibold text-muted-foreground">
-                {user?.institutionCode}
+              <span className="ml-2 text-sm font-semibold text-secondary-foreground">
+                {user.institutionCode}
               </span>
             )}
           </div>
         </div>
-
         {user && (
           <div className="flex items-center space-x-4">
-            <Link to="/messages">
-              <Button variant="ghost" size="icon" title="Messages">
-                <MessageSquare className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Link to="/announcements">
-              <Button variant="ghost" size="icon" title="Announcements">
-                <Bell className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Link to="/meetings">
-              <Button variant="ghost" size="icon" title="Meetings">
-                <Calendar className="w-5 h-5" />
-              </Button>
-            </Link>
-
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
                   className="relative h-8 w-8 rounded-full"
                 >
-                  <Avatar className={`h-8 w-8 ${getRoleColor()}`}>
+                  <Avatar className="h-8 w-8 bg-secondary">
                     <AvatarImage
                       src={user.profilePicture}
                       alt={`${user.firstName} ${user.lastName}`}
@@ -107,26 +75,32 @@ export function Header({ toggleSidebar }: HeaderProps) {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
+              <DropdownMenuContent className="w-56 bg-secondary" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal text-primary-text">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
                       {user.firstName} {user.lastName}
                     </p>
-                    <p className="text-xs leading-none text-muted-foreground">
+                    <p className="text-xs leading-none text-secondary-text">
                       {user.username}
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile" className="flex items-center">
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/settings">Settings</Link>
+                  <Link to="/settings" className="flex items-center">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center">
                   <LogOut className="w-4 h-4 mr-2" />
                   <span>Log out</span>
                 </DropdownMenuItem>

@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, LogOut, Settings, User } from "lucide-react";
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -56,8 +56,9 @@ export function Header({ toggleSidebar }: HeaderProps) {
             )}
           </div>
         </div>
-        {user && (
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
+          <ThemeToggle />
+          {user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -106,8 +107,8 @@ export function Header({ toggleSidebar }: HeaderProps) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

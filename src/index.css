@@ -30,6 +30,7 @@
     --custom1: #acacac;
     --custom2: #bec2c2;
     --radius: 0.5rem;
+    --border: #7c9a92;
   }
   .dark {
     /* Use same palette for dark for now */
@@ -55,9 +56,15 @@
     --info: #ffffff;
     --custom1: #acacac;
     --custom2: #bec2c2;
+    --border: #7c9a92;
   }
 }
+
 @layer base {
-  * { @apply border-border; }
-  body { @apply bg-background text-foreground antialiased; }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
 }

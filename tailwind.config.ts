@@ -49,6 +49,8 @@ export default {
         popover: { DEFAULT: "#262d34", foreground: "#ffffff" },
         background: "#253334",
         foreground: "#ffffff",
+        // Add border color
+        border: "#7c9a92", // Using primary color for border
       },
       borderRadius: {
         lg: "0.5rem",

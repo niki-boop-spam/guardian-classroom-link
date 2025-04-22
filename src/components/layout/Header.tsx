@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, Menu } from "lucide-react";
+import { Bell, MessageSquare, Calendar, LogOut, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/auth";
@@ -33,22 +33,23 @@ export function Header({ toggleSidebar }: HeaderProps) {
 
   const getRoleColor = () => {
     if (!user) return "bg-gray-300";
+
     switch (user.role) {
       case "admin":
-        return "bg-primary";
+        return "bg-admin";
       case "faculty":
-        return "bg-secondary";
+        return "bg-faculty";
       case "student":
-        return "bg-accent2";
+        return "bg-student";
       case "parent":
-        return "bg-accent3";
+        return "bg-parent";
       default:
         return "bg-gray-300";
     }
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-background border-b shadow-sm">
+    <header className="sticky top-0 z-30 bg-white border-b shadow-sm">
       <div className="flex items-center justify-between h-16 px-4">
         <div className="flex items-center">
           <Button
@@ -57,21 +58,38 @@ export function Header({ toggleSidebar }: HeaderProps) {
             onClick={toggleSidebar}
             className="mr-2"
           >
-            <Menu className="w-5 h-5 text-primary" />
+            <Menu className="w-5 h-5" />
           </Button>
           <div className="flex items-center">
-            <img
-              src="/lovable-uploads/187ef544-faa5-435c-9cce-74bfe4793c18.png"
-              alt="V.E.D LOGO"
-              className="w-8 h-8 mr-2"
-            />
-            <h1 className="text-lg font-bold text-primary tracking-wide">
-              <Link to="/">V.E.D - Void Educational Dashboard</Link>
+            <h1 className="text-xl font-bold text-primary">
+              <Link to="/">Guardian Classroom Link</Link>
             </h1>
+            {user && (
+              <span className="ml-2 text-sm font-semibold text-muted-foreground">
+                {user?.institutionCode}
+              </span>
+            )}
           </div>
         </div>
+
         {user && (
           <div className="flex items-center space-x-4">
+            <Link to="/messages">
+              <Button variant="ghost" size="icon" title="Messages">
+                <MessageSquare className="w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to="/announcements">
+              <Button variant="ghost" size="icon" title="Announcements">
+                <Bell className="w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to="/meetings">
+              <Button variant="ghost" size="icon" title="Meetings">
+                <Calendar className="w-5 h-5" />
+              </Button>
+            </Link>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -95,7 +113,7 @@ export function Header({ toggleSidebar }: HeaderProps) {
                     <p className="text-sm font-medium leading-none">
                       {user.firstName} {user.lastName}
                     </p>
-                    <p className="text-xs leading-none text-secondary-text">
+                    <p className="text-xs leading-none text-muted-foreground">
                       {user.username}
                     </p>
                   </div>
@@ -109,7 +127,7 @@ export function Header({ toggleSidebar }: HeaderProps) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="w-4 h-4 mr-2 text-error" />
+                  <LogOut className="w-4 h-4 mr-2" />
                   <span>Log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
